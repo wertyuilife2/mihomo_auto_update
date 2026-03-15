@@ -1,0 +1,4 @@
+*.deb
+*.log
+*.pyc
+logs/
