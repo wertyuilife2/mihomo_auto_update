@@ -1,0 +1,9 @@
+dns:
+  enable: true
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-redirect: true
+rules:
+  - DOMAIN-SUFFIX,tencentyun.com,🚫不走代理
