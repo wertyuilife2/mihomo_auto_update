@@ -1,9 +1,18 @@
-dns:
-  enable: true
-tun:
-  enable: true
-  stack: mixed
-  auto-route: true
-  auto-redirect: true
+log-level: warning
+mode: rule
+unified-delay: true
+allow-lan: false
+
+## 开启TUN mode+dns
+# dns:
+#   enable: true
+# tun:
+#   enable: true
+#   stack: mixed
+#   auto-route: true
+#   auto-redirect: true
+
+# 自定义rules，添加在订阅规则前面（在合并yaml时特殊处理）
 rules:
-  - DOMAIN-SUFFIX,tencentyun.com,🚫不走代理
+  - DST-PORT,22,DIRECT # SSH不走代理
+  - DOMAIN-SUFFIX,tencentyun.com,DIRECT
