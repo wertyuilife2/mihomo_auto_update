@@ -21,7 +21,7 @@ sudo -v
 if pgrep -f -- "$MIHOMO_PROCESS_PATTERN" > /dev/null; then
   log "stopping mihomo..."
   sudo pkill -f -- "$MIHOMO_PROCESS_PATTERN"
-  sleep 1
+  sleep 2
 
   if pgrep -f -- "$MIHOMO_PROCESS_PATTERN" > /dev/null; then
     log "failed to stop mihomo."
@@ -37,7 +37,7 @@ fi
 if pgrep -f -- "$AUTO_UPDATE_PROCESS_PATTERN" > /dev/null; then
   log "stopping auto update script..."
   pkill -f -- "$AUTO_UPDATE_PROCESS_PATTERN"
-  sleep 1
+  sleep 2
 
   if pgrep -f -- "$AUTO_UPDATE_PROCESS_PATTERN" > /dev/null; then
     log "failed to stop auto update script."

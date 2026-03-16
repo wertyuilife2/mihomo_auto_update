@@ -1,0 +1,25 @@
+log-level: warning
+mode: rule
+unified-delay: true
+allow-lan: false
+
+dns:
+  enable: true
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-redirect: true
+proxies:
+- name: mylocalproxy
+  type: http
+  server: 127.0.0.1
+  port: 7897 # 需要配置此处：用SSH反向代理的端口，例如在你的ssh config中设置RemoteForward 7897 127.0.0.1:7897
+  skip-cert-verify: true
+proxy-groups:
+- name: mylocalproxy-group
+  type: select
+  proxies:
+  - mylocalproxy
+rules:
+- MATCH,mylocalproxy-group
