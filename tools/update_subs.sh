@@ -69,7 +69,7 @@ trap cleanup EXIT
 
 log "download config..."
 # 下载到临时文件，避免失败时污染当前 config.yaml。
-curl -fsSL \
+curl --proxy "" -fsSL \
   -H "User-Agent: Clash.Meta" \
   "$SUB_URL" \
   -o "$NEW_CONFIG_PATH"
@@ -85,7 +85,7 @@ try_start_mihomo
 
 log "reload mihomo..."
 # 统一带上 Authorization 头，空 secret 也可以正常工作。
-curl -fsS \
+curl --proxy "" -fsS \
   -X PUT \
   -H "Authorization: Bearer ${MIHOMO_SECRET}" \
   -H "Content-Type: application/json" \
