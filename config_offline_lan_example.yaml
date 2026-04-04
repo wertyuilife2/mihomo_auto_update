@@ -25,16 +25,16 @@ tun:
     - any:53
     - tcp://any:53
   route-exclude-address:
-    - 127.0.0.1/32  # 可能需要配置此处，防止本地代理服务器地址被TUN mode代理，导致循环代理
+    - 10.3.0.86/32  # 可能需要配置此处，防止本地代理服务器地址被TUN mode代理，导致循环代理
 
 proxies:
   - name: mylocalproxy
     type: socks5
-    server: 127.0.0.1 # 需要配置此处：代理服务地址。
-    port: 7897  # 需要配置此处：代理服务端口，设置为和type相应的端口。
+    server: 10.3.0.86 # 需要配置此处：代理服务地址。
+    port: 8893  # 需要配置此处：代理服务端口，设置为和type相应的端口。
     udp: true
-    # username:
-    # password:
+    username: h200
+    password: 39f42d1a-9793-3622-9050-9726889b9b89
 
 proxy-groups:
   - name: GLOBAL
