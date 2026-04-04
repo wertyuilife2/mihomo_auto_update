@@ -5,10 +5,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/config.conf"
+# shellcheck disable=SC1091
+source "${REPO_ROOT}/tools/logrotate.sh"
 
-LOG_DIR="${SCRIPT_DIR}/logs"
-AUTO_UPDATE_SCRIPT="${SCRIPT_DIR}/tools/auto_update.sh"
-AUTO_UPDATE_LOG="${LOG_DIR}/auto_update.log"
+AUTO_UPDATE_SCRIPT="${REPO_ROOT}/tools/auto_update.sh"
 AUTO_UPDATE_PROCESS_PATTERN="bash ${AUTO_UPDATE_SCRIPT}"
 
 log() {
@@ -18,7 +18,8 @@ log() {
 # 先拿到 sudo 凭证，避免中途启动时卡住。
 sudo -v
 mkdir -p "$LOG_DIR"
-
+register_logrotate "$MIHOMO_LOG" "$AUTO_UPDATE_LOG"
+log "logrotate registered at ${LOGROTATE_CONF_PATH}"
 
 # 自动更新脚本单独运行，和 mihomo 主进程互不依赖。
 if pgrep -f -- "$AUTO_UPDATE_PROCESS_PATTERN" > /dev/null; then

@@ -3,11 +3,10 @@ set -euo pipefail
 
 # 定时执行订阅更新脚本。
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 # shellcheck disable=SC1091
-source "${REPO_ROOT}/config.conf"
+source "${SCRIPT_DIR}/../config.conf"
 
-UPDATE_SCRIPT="${SCRIPT_DIR}/update_subs.sh"
+UPDATE_SCRIPT="${REPO_ROOT}/tools/update_subs.sh"
 
 log() {
   printf '[%s] [mihomo-auto] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
