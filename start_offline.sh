@@ -5,13 +5,13 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/config.conf"
+source "${SCRIPT_DIR}/config/config.conf"
 # shellcheck disable=SC1091
 source "${REPO_ROOT}/tools/logrotate.sh"
 
 MIHOMO_PROCESS_PATTERN="mihomo -d ${MIHOMO_CONFIG_DIR}"
 MIHOMO_UI_DIR="${MIHOMO_CONFIG_DIR}/ui"
-OFFLINE_CONFIG_PATH="${REPO_ROOT}/config_offline.yaml"
+OFFLINE_CONFIG_PATH="${REPO_ROOT}/config/config_offline.yaml"
 
 log() {
   printf '[%s] [mihomo-start] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"

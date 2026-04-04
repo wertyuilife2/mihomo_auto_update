@@ -4,13 +4,13 @@ set -euo pipefail
 # 下载新订阅，校验配置，然后通过 mihomo API 热更新。
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/../config.conf"
+source "${SCRIPT_DIR}/../config/config.conf"
 
 MIHOMO_API="http://${MIHOMO_EXT_CTL}"
 NEW_CONFIG_PATH="${MIHOMO_CONFIG_DIR}/config.yaml.new"
 LIVE_CONFIG_PATH="${MIHOMO_CONFIG_DIR}/config.yaml"
 MERGED_CONFIG_PATH="${MIHOMO_CONFIG_DIR}/config.yaml.merged"
-OVERRIDE_CONFIG_PATH="${REPO_ROOT}/config_override.yaml"
+OVERRIDE_CONFIG_PATH="${REPO_ROOT}/config/config_override.yaml"
 MERGE_TOOL_PATH="${REPO_ROOT}/tools/merge_yaml.py"
 MIHOMO_PROCESS_PATTERN="mihomo -d ${MIHOMO_CONFIG_DIR}"
 MIHOMO_UI_DIR="${MIHOMO_CONFIG_DIR}/ui"
@@ -27,7 +27,7 @@ validate_and_apply_override_config() {
     return 0
   fi
 
-  log "merging config_override.yaml..."
+  log "merging config/config_override.yaml..."
   python "$MERGE_TOOL_PATH" \
     "$NEW_CONFIG_PATH" \
     "$OVERRIDE_CONFIG_PATH" \
