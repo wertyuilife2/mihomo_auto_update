@@ -5,8 +5,10 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/config.conf"
+# shellcheck disable=SC1091
+source "${REPO_ROOT}/tools/logrotate.sh"
 
-AUTO_UPDATE_SCRIPT="${SCRIPT_DIR}/tools/auto_update.sh"
+AUTO_UPDATE_SCRIPT="${REPO_ROOT}/tools/auto_update.sh"
 MIHOMO_PROCESS_PATTERN="mihomo -d ${MIHOMO_CONFIG_DIR}"
 AUTO_UPDATE_PROCESS_PATTERN="bash ${AUTO_UPDATE_SCRIPT}"
 
@@ -32,6 +34,9 @@ if pgrep -f -- "$MIHOMO_PROCESS_PATTERN" > /dev/null; then
 else
   log "mihomo is not running."
 fi
+
+unregister_logrotate
+log "logrotate unregistered from ${LOGROTATE_CONF_PATH}"
 
 # 如果自动更新脚本在运行，就停止它。
 if pgrep -f -- "$AUTO_UPDATE_PROCESS_PATTERN" > /dev/null; then

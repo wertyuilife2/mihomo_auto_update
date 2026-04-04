@@ -3,21 +3,17 @@ set -euo pipefail
 
 # 下载新订阅，校验配置，然后通过 mihomo API 热更新。
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
 # shellcheck disable=SC1091
-source "${REPO_ROOT}/config.conf"
+source "${SCRIPT_DIR}/../config.conf"
 
 MIHOMO_API="http://${MIHOMO_EXT_CTL}"
 NEW_CONFIG_PATH="${MIHOMO_CONFIG_DIR}/config.yaml.new"
 LIVE_CONFIG_PATH="${MIHOMO_CONFIG_DIR}/config.yaml"
 MERGED_CONFIG_PATH="${MIHOMO_CONFIG_DIR}/config.yaml.merged"
 OVERRIDE_CONFIG_PATH="${REPO_ROOT}/config_override.yaml"
-MERGE_TOOL_PATH="${SCRIPT_DIR}/merge_yaml.py"
+MERGE_TOOL_PATH="${REPO_ROOT}/tools/merge_yaml.py"
 MIHOMO_PROCESS_PATTERN="mihomo -d ${MIHOMO_CONFIG_DIR}"
 MIHOMO_UI_DIR="${MIHOMO_CONFIG_DIR}/ui"
-LOG_DIR="${REPO_ROOT}/logs"
-MIHOMO_LOG="${LOG_DIR}/mihomo.log"
-
 log() {
   printf '[%s] [mihomo-update] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
 }

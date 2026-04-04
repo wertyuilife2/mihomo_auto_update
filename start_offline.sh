@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# 如果服务器没网，使用TUN mode+SSH反向代理
+# 服务器没网的情况下，要TUN mode连局域网的代理，用这个脚本。
+
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
 source "${SCRIPT_DIR}/config.conf"
+# shellcheck disable=SC1091
+source "${REPO_ROOT}/tools/logrotate.sh"
 
-LOG_DIR="${SCRIPT_DIR}/logs"
 MIHOMO_PROCESS_PATTERN="mihomo -d ${MIHOMO_CONFIG_DIR}"
 MIHOMO_UI_DIR="${MIHOMO_CONFIG_DIR}/ui"
-LOG_DIR="${SCRIPT_DIR}/logs"
-MIHOMO_LOG="${LOG_DIR}/mihomo.log"
-OFFLINE_CONFIG_PATH="${SCRIPT_DIR}/config_offline.yaml"
+OFFLINE_CONFIG_PATH="${REPO_ROOT}/config_offline.yaml"
 
 log() {
   printf '[%s] [mihomo-start] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"
@@ -20,7 +20,8 @@ log() {
 # 先拿到 sudo 凭证，避免中途启动时卡住。
 sudo -v
 mkdir -p "$LOG_DIR"
-
+register_logrotate "$MIHOMO_LOG" "$AUTO_UPDATE_LOG"
+log "logrotate registered at ${LOGROTATE_CONF_PATH}"
 
 # 如果 mihomo 已经在跑，就不重复启动。
 if pgrep -f -- "$MIHOMO_PROCESS_PATTERN" > /dev/null; then
