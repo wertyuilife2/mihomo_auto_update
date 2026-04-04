@@ -26,7 +26,7 @@ if pgrep -f -- "$AUTO_UPDATE_PROCESS_PATTERN" > /dev/null; then
   log "auto update script already running, skipped"
 else
   log "starting auto update script..."
-  nohup bash "$AUTO_UPDATE_SCRIPT" >> "$AUTO_UPDATE_LOG" 2>&1 &
+  setsid bash "$AUTO_UPDATE_SCRIPT" >> "$AUTO_UPDATE_LOG" 2>&1 &
   sleep 2
 
   if pgrep -f -- "$AUTO_UPDATE_PROCESS_PATTERN" > /dev/null; then

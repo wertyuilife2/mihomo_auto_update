@@ -43,12 +43,12 @@ try_start_mihomo() {
     log "mihomo is not running, starting mihomo..."
 
     # 用命令行参数固定 config dir、controller 和 ui 目录。
-    sudo nohup "$MIHOMO_BIN" \
+    sudo setsid "$MIHOMO_BIN" \
       -d "$MIHOMO_CONFIG_DIR" \
       -ext-ctl "$MIHOMO_EXT_CTL" \
       -ext-ui "$MIHOMO_UI_DIR" \
       -f "$NEW_CONFIG_PATH" \
-      >> "$MIHOMO_LOG" 2>&1 &
+      >> "$MIHOMO_LOG" 2>&1 < /dev/null &
     sleep 2
 
     if pgrep -f -- "$MIHOMO_PROCESS_PATTERN" > /dev/null; then
