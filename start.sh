@@ -4,7 +4,7 @@ set -euo pipefail
 # 启动 mihomo 主进程和自动更新进程。
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/config.conf"
+source "${SCRIPT_DIR}/config/config.conf"
 # shellcheck disable=SC1091
 source "${REPO_ROOT}/tools/logrotate.sh"
 

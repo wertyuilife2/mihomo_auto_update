@@ -4,7 +4,7 @@ set -euo pipefail
 # 定时执行订阅更新脚本。
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC1091
-source "${SCRIPT_DIR}/../config.conf"
+source "${SCRIPT_DIR}/../config/config.conf"
 
 UPDATE_SCRIPT="${REPO_ROOT}/tools/update_subs.sh"
 
