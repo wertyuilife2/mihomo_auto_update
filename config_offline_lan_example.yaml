@@ -1,0 +1,46 @@
+log-level: warning
+mode: global
+unified-delay: true
+allow-lan: false
+
+dns:
+  enable: true
+  enhanced-mode: redir-host
+  ipv6: false
+  nameserver:
+  # 这两个 DNS 服务器的地址里带上了 `#mylocalproxy`，表示它们是通过 `mylocalproxy` 这个代理服务器访问的
+  # 因为如果本机没有网络，就必须靠代理服务器来访问 DNS 服务器了
+    - 'https://1.1.1.1/dns-query#mylocalproxy' 
+    - 'https://8.8.8.8/dns-query#mylocalproxy'
+    - 'https://114.114.114.114/dns-query#mylocalproxy'
+
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-redirect: true # 仅支持 Linux，自动配置 iptables/nftables 以重定向 TCP 连接，需要auto-route已启用
+  auto-detect-interface: true
+  strict-route: true
+  dns-hijack: # 配合 DNS nameserver 的 `#mylocalproxy`，让 DNS 请求也走代理服务器
+    - any:53
+    - tcp://any:53
+  route-exclude-address:
+    - 10.3.0.86/32  # 可能需要配置此处，防止本地代理服务器地址被TUN mode代理，导致循环代理
+
+proxies:
+  - name: mylocalproxy
+    type: socks5
+    server: 10.3.0.86 # 需要配置此处：代理服务地址。
+    port: 8893  # 需要配置此处：代理服务端口，设置为和type相应的端口。
+    udp: true
+    username: h200
+    password: 39f42d1a-9793-3622-9050-9726889b9b89
+
+proxy-groups:
+  - name: GLOBAL
+    type: select
+    proxies:
+      - mylocalproxy
+
+rules:
+  - MATCH,GLOBAL

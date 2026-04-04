@@ -3,14 +3,21 @@ mode: rule
 unified-delay: true
 allow-lan: false
 
-## 开启TUN mode+dns
+## 如果要开启TUN mode，解除以下注释
 # dns:
 #   enable: true
+#   enhanced-mode: redir-host
+#   ipv6: false
 # tun:
 #   enable: true
 #   stack: mixed
 #   auto-route: true
 #   auto-redirect: true
+#   auto-detect-interface: true
+#   strict-route: true
+#   dns-hijack:
+#     - any:53
+#     - tcp://any:53
 
 # 自定义rules，添加在订阅规则前面（在合并yaml时特殊处理）
 rules:
