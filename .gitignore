@@ -1,3 +1,13 @@
 *.log
 *.pyc
 logs/
+
+# Local configuration contains subscription URLs and controller secrets.
+/config.conf
+/config.conf.*
+/config.conf~
+/config/config.conf
+/config/config.conf.*
+/config/config.conf~
+/config.conf~
+!/config/config.conf.example

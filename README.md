@@ -29,7 +29,7 @@ pip install pyyaml # 保证脚本运行环境中有python以及pyyaml
 
 ### 开启代理
 
-1. 首先，在`config/config.conf`的`SUB_URL`项填写你的订阅地址。
+1. 首次使用先执行 `cp config/config.conf.example config/config.conf`，再在本地 `config/config.conf` 的 `SUB_URL` 项填写你的订阅地址。真实配置已被 Git 忽略，请勿强制添加或提交包含订阅地址的备份。
 2. 如果你的服务器不能访问互联网/无法连接到你的梯子节点，直接去[服务器没有网络](#服务器没有网络)。
 3. 执行`./start.sh`，启动自动更新订阅脚本和mihomo。
 4. 访问`http://127.0.0.1:9090/ui`，通过web UI查看mihomo状态，配置代理节点。
@@ -102,7 +102,7 @@ Trojan协议没法转发ICMP协议，所以即使mihomo在TUN mode下可以代�
 
 ## 我还是不懂
 
-首先在 `config/config.conf` 的 `SUB_URL` 中填入你的订阅地址。
+首次使用先执行 `cp config/config.conf.example config/config.conf`，再在本地 `config/config.conf` 的 `SUB_URL` 中填入你的订阅地址。
 
 ### 1. 如果服务器能够访问到梯子节点
 
